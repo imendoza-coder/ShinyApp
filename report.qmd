@@ -1,6 +1,6 @@
 ---
 title: "NYC Motor Vehicle Collision Forecasting"
-author: "Your Name"
+author: "Imelda Mendoza"
 format:
   pdf:
     toc: false
