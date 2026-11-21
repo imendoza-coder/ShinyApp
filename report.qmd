@@ -1,6 +1,6 @@
 ---
 title: "NYC Motor Vehicle Collision Forecasting"
-author: "Your Name"
+author: "Imelda Mendoza"
 format:
   pdf:
     toc: false
@@ -28,7 +28,7 @@ execute:
 -   Residual diagnostics for any model and borough.
 -   Overview tab with total, average and maximum daily collisions, and a searchable data explorer.
 
-## Part II — Data Story (≤ 2 pages total)
+## Part II — Data Story
 
 **Weekday and seasonal structure make daily collisions forecastable, and the best model differs by borough.**
 
@@ -36,20 +36,9 @@ Citywide (five boroughs), daily collisions show a modest weekly cycle, with Frid
 
 Validation errors also reflect a change in level. Average daily collisions fell from about 198 in 2021 to about 178 in 2024, then rose to about 215 in 2025. Actual collisions therefore ran above most model forecasts in the Bronx and Manhattan during validation, because the trend was learned from the earlier decline. This is a limit of fitting a trend to earlier data, and it is why the training cutoff control matters.
 
-```{r}
-#| fig-height: 2.6
-library(tidyverse)
+![App screenshot: validation-period forecasts by borough, with actual collisions in grey and the Full TSLM prediction intervals shaded.](images/app-forecast.png){width=72%}
 
-read_csv("data/daily_borough_counts.csv", show_col_types = FALSE) |>
-  filter(borough != "Unknown") |>
-  mutate(month = floor_date(day, "month")) |>
-  summarise(crashes = sum(crashes), .by = c(borough, month)) |>
-  ggplot(aes(month, crashes, color = borough)) +
-  geom_line() +
-  labs(x = NULL, y = "Monthly collisions", color = "Borough")
-```
-
-![App screenshot: Forecasts tab (replace with your own).](images/app-forecast.png){width=75%}
+![App screenshot: validation RMSE by model and borough.](images/rmse-comparison.png){width=72%}
 
 Story board.
 
